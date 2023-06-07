@@ -10,9 +10,24 @@ export class User {
   @ApiProperty({ example: 'Tom' })
   name: string;
 
+  @Prop({
+    required: true,
+    unique: true,
+    type: String,
+  })
+  @ApiProperty({ example: 'tom@gmail.com' })
+  email: string;
+
   @Prop()
-  @ApiProperty({ example: 1, description: 'The age of the Cat' })
-  age: number;
+  password: string;
+
+  @Prop()
+  salt: string;
+
+  @Prop({
+    default: false,
+  })
+  isVerified: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
