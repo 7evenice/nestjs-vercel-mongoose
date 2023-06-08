@@ -1,7 +1,7 @@
-import { MailerService } from '@nest-modules/mailer';
 import {
   ConflictException,
   Injectable,
+  Module,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -13,6 +13,10 @@ import { CreateToken } from './auth.interface';
 import { SignInDto, SignUpDto } from './dto/auth-credentials.dto';
 import { TokenPayloadDto } from './dto/token-payload.dto';
 
+import { MailerService } from '@nest-modules/mailer';
+@Module({
+  imports: [MailerService],
+})
 @Injectable()
 export class AuthService {
   constructor(
@@ -50,6 +54,8 @@ export class AuthService {
     await user.save();
     return user;
   }
+
+  
 
   async validateUser(userId: string): Promise<User> {
     return this.usersService.findOne(userId);
